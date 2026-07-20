@@ -475,6 +475,7 @@ section { position: relative; z-index: 2; }
 .project-row:nth-child(1) .proj-type { color: var(--v); }
 .project-row:nth-child(2) .proj-type { color: var(--c); }
 .project-row:nth-child(3) .proj-type { color: var(--g); }
+.project-row:nth-child(4) .proj-type { color: var(--p); }
 .project-row:hover .proj-type { color: rgba(255,255,255,0.45) !important; }
 
 .proj-name {
@@ -865,8 +866,22 @@ footer {
     <h2 class="sec-h fu d1">Projects that <span class="grad3">actually shipped</span></h2>
 
     <div style="margin-top:3.5rem;">
-      <a class="project-row fu d2" href="http://16.171.113.201/" target="_blank" rel="noopener" data-preview="hireiq">
+      <a class="project-row fu d2" href="http://16.171.113.201/" target="_blank" rel="noopener" data-preview="thinkwell">
         <span class="proj-num">01</span>
+        <div>
+          <div class="proj-type">Full-Stack · MERN · LLaMA 3.3 · AWS EC2</div>
+          <div class="proj-name">ThinkWell.AI <span class="proj-arrow"><i class="fas fa-arrow-right"></i></span></div>
+          <p class="proj-desc">AI-powered mental wellness companion — context-aware LLaMA 3.3 chat, automatic mood tracking, crisis detection with SOS, guided breathing &amp; journaling.</p>
+        </div>
+        <div class="proj-tags">
+          <span class="p-tag">React</span><span class="p-tag">Node.js</span>
+          <span class="p-tag">MongoDB</span><span class="p-tag">Groq AI</span>
+          <span class="p-tag">Socket.IO</span>
+        </div>
+      </a>
+
+      <a class="project-row fu d3" href="http://16.171.113.201/" target="_blank" rel="noopener" data-preview="hireiq">
+        <span class="proj-num">02</span>
         <div>
           <div class="proj-type">Full-Stack · MERN · AWS EC2</div>
           <div class="proj-name">HireIQ <span class="proj-arrow"><i class="fas fa-arrow-right"></i></span></div>
@@ -878,8 +893,8 @@ footer {
         </div>
       </a>
 
-      <a class="project-row fu d3" href="https://wag-welfare-frontend.onrender.com/" target="_blank" rel="noopener" data-preview="pawrescue">
-        <span class="proj-num">02</span>
+      <a class="project-row fu d4" href="https://wag-welfare-frontend.onrender.com/" target="_blank" rel="noopener" data-preview="pawrescue">
+        <span class="proj-num">03</span>
         <div>
           <div class="proj-type">Full-Stack · Microservices · Render</div>
           <div class="proj-name">PawRescue <span class="proj-arrow"><i class="fas fa-arrow-right"></i></span></div>
@@ -891,8 +906,8 @@ footer {
         </div>
       </a>
 
-      <a class="project-row fu d4" href="https://lipsadev.github.io/Learnify/" target="_blank" rel="noopener" data-preview="learnify">
-        <span class="proj-num">03</span>
+      <a class="project-row fu d5" href="https://lipsadev.github.io/Learnify/" target="_blank" rel="noopener" data-preview="learnify">
+        <span class="proj-num">04</span>
         <div>
           <div class="proj-type">Frontend · React · GitHub Pages</div>
           <div class="proj-name">Learnify <span class="proj-arrow"><i class="fas fa-arrow-right"></i></span></div>
@@ -917,6 +932,9 @@ footer {
 </div>
 <div class="proj-preview" id="prev-learnify">
   <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80&fit=crop" alt="Learnify"/>
+</div>
+<div class="proj-preview" id="prev-thinkwell">
+  <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&q=80&fit=crop" alt="ThinkWell.AI — Mental Wellness Companion"/>
 </div>
 <div class="div-line"></div>
 
@@ -1130,6 +1148,7 @@ document.querySelectorAll('.btn,.nav-logo').forEach(el=>{
    PROJECT PREVIEW (cursor-follow)
 ══════════════════════════════════ */
 const previews = {
+  thinkwell: document.getElementById('prev-thinkwell'),
   hireiq:    document.getElementById('prev-hireiq'),
   pawrescue: document.getElementById('prev-pawrescue'),
   learnify:  document.getElementById('prev-learnify'),
