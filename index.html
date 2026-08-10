@@ -938,6 +938,235 @@ footer {
 </div>
 <div class="div-line"></div>
 
+<!-- ═══════════════ CREATIVE BUILDS STYLES ═══════════════ -->
+<style>
+/* ─── Creative Builds Section ─── */
+#creative-builds { background: var(--bg); }
+
+.cb-subtitle {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.6rem;
+  letter-spacing: 0.02em;
+}
+
+.cb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+  margin-top: 3.5rem;
+  align-items: start;
+}
+
+/* Each cell: starts as a circle, expands to rect on hover */
+.cb-item {
+  position: relative;
+  cursor: none;
+  /* circle state */
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition:
+    width 0.55s cubic-bezier(0.16,1,0.3,1),
+    height 0.55s cubic-bezier(0.16,1,0.3,1),
+    border-radius 0.55s cubic-bezier(0.16,1,0.3,1),
+    box-shadow 0.45s ease;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: 0 4px 18px rgba(13,13,26,0.08);
+  background: var(--white);
+  border: 1px solid var(--line);
+  /* justify circle center within grid cell */
+  justify-self: center;
+}
+
+/* Expanded (rect) state — JS-toggled only, NO :hover (prevents flicker loop) */
+.cb-item.expanded {
+  width: 340px;
+  height: 200px;
+  border-radius: 4px;
+  box-shadow:
+    0 12px 40px rgba(124,58,237,0.12),
+    0 2px 8px rgba(13,13,26,0.06);
+  /* Use translate instead of justify-self change so the grid cell
+     never moves — prevents the cursor-escape flicker loop */
+  transform: translateX(-50%) translateX(70px);
+}
+
+/* Image fills the full circle; shrinks to top portion when expanded */
+.cb-img-wrap {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: height 0.55s cubic-bezier(0.16,1,0.3,1);
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.cb-item.expanded .cb-img-wrap {
+  height: 45%;
+  position: relative;
+}
+
+.cb-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s cubic-bezier(0.16,1,0.3,1);
+  display: block;
+}
+
+.cb-item.expanded .cb-img-wrap img {
+  transform: scale(1.04);
+}
+
+/* Content hidden when in circle state */
+.cb-content {
+  padding: 0.9rem 1rem 0.8rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.3s ease 0.2s,
+    transform 0.35s cubic-bezier(0.16,1,0.3,1) 0.2s;
+  pointer-events: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  overflow: hidden;
+}
+
+.cb-item.expanded .cb-content {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.cb-title {
+  font-family: var(--body);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cb-desc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cb-techs {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  margin-top: 0.1rem;
+}
+
+.cb-tech {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  background: rgba(124,58,237,0.07);
+  color: var(--v);
+  border: 1px solid rgba(124,58,237,0.18);
+  white-space: nowrap;
+}
+
+.cb-view {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--v);
+  letter-spacing: 0.04em;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.cb-item.expanded .cb-view { opacity: 1; }
+
+/* Empty slot — placeholder circle outline */
+.cb-empty {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--line);
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cb-empty-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: rgba(107,107,141,0.35);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .cb-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.8rem;
+  }
+  .cb-item.expanded {
+    width: 280px;
+    height: 190px;
+    transform: translateX(-50%) translateX(70px);
+  }
+}
+
+@media (max-width: 500px) {
+  .cb-grid {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+    justify-items: center;
+  }
+  .cb-item.expanded {
+    width: 300px;
+    height: 200px;
+    transform: none;
+  }
+  .cb-empty {
+    display: none;
+  }
+}
+</style>
+
+<!-- CREATIVE BUILDS -->
+<section id="creative-builds">
+  <div class="wrap">
+    <p class="eyebrow fu">Creative Builds</p>
+    <h2 class="sec-h fu d1">Things I built just <span class="grad">because.</span></h2>
+    <p class="cb-subtitle fu d2"><em>Small experiments, creative ideas, and things I built just because I could.</em></p>
+
+    <div class="cb-grid" id="cb-grid">
+      <!-- Projects injected by JS -->
+    </div>
+  </div>
+</section>
+<div class="div-line"></div>
+
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="wrap">
@@ -1210,6 +1439,93 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
   });
 });
+
+/* ══════════════════════════════════
+   CREATIVE BUILDS
+══════════════════════════════════ */
+(function(){
+  /* ── Data ── */
+  const CB_PROJECTS = [
+    {
+      title: 'Dragon Cursor',
+      image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=80&fit=crop',
+      description: 'An interactive JavaScript experiment featuring a dragon that follows the user\'s cursor.',
+      techs: ['JavaScript','HTML','CSS'],
+      url: 'https://lipsadev.github.io/dragon-cursor/'
+    }
+  ];
+
+  const GRID_SIZE = 9;
+  const grid = document.getElementById('cb-grid');
+  if(!grid) return;
+
+  const isTouchDevice = () => (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+
+  /* ── Render items ── */
+  CB_PROJECTS.forEach(p => {
+    const a = document.createElement('a');
+    a.className = 'cb-item fu';
+    a.href = p.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.setAttribute('aria-label', p.title + ' — View Project');
+
+    /* Touch: first tap = expand, second tap = navigate */
+    if(isTouchDevice()){
+      a.addEventListener('click', e => {
+        if(!a.classList.contains('expanded')){
+          e.preventDefault();
+          /* collapse any other open item */
+          grid.querySelectorAll('.cb-item.expanded').forEach(el => el.classList.remove('expanded'));
+          a.classList.add('expanded');
+        }
+        /* second tap → follows href naturally */
+      });
+    }
+
+    const techsHTML = p.techs.map(t => `<span class="cb-tech">${t}</span>`).join('');
+
+    a.innerHTML = `
+      <div class="cb-img-wrap">
+        <img src="${p.image}" alt="${p.title}" loading="lazy"
+             onerror="this.src='https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=600&q=80&fit=crop'">
+      </div>
+      <div class="cb-content">
+        <div class="cb-title">${p.title}</div>
+        <div class="cb-desc">${p.description}</div>
+        <div class="cb-techs">${techsHTML}</div>
+        <div class="cb-view">View Project ↗</div>
+      </div>`;
+
+    grid.appendChild(a);
+  });
+
+  /* ── Fill remaining slots with empty placeholders ── */
+  const remaining = GRID_SIZE - CB_PROJECTS.length;
+  for(let i = 0; i < remaining; i++){
+    const div = document.createElement('div');
+    div.className = 'cb-empty';
+    div.innerHTML = `<span class="cb-empty-label">Soon</span>`;
+    grid.appendChild(div);
+  }
+
+  /* ── Expand on mouseenter / collapse on mouseleave (JS-only, no CSS :hover) ── */
+  if(!isTouchDevice()){
+    grid.querySelectorAll('.cb-item').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        el.classList.add('expanded');
+        document.body.classList.add('cur-hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        el.classList.remove('expanded');
+        document.body.classList.remove('cur-hover');
+      });
+    });
+  }
+
+  /* ── Scroll reveal for newly created .fu elements ── */
+  grid.querySelectorAll('.cb-item').forEach(el => io.observe(el));
+})();
 </script>
 </body>
 </html>
